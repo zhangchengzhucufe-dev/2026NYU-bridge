@@ -125,7 +125,7 @@ istream &operator>>(istream &ins, Money &amount)
     int cents;
     bool negative; // set to true if input is negative.
     ins >> one_char;
-    if (one_char == '−')
+    if (one_char == '-')
     {
         negative = true;
         ins >> one_char; // read '$'
@@ -168,4 +168,35 @@ ostream &operator<<(ostream &outs, const Money &amount)
     outs << cents;
 
     return outs;
+}
+
+
+class Check
+{
+private:
+    long all_cents;
+    bool cashed;
+    int num;
+public:
+    Check(bool cashed, int num, long dollars, int cents);
+    Check(bool cashed, int num, long dollars);
+    void set_value(double amount)
+    {
+        all_cents = amount * 100;
+    }
+    
+
+};
+
+void Check::set_value(double amount)
+{
+    all_cents = amount * 100;
+}
+
+
+int main()
+{
+    int capacity = 16;
+
+    return 0;
 }
