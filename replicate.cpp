@@ -1,41 +1,70 @@
 template <typename T>
-struct BSTNode
+class BST;
+
+template <typename T>
+class BSTNode
 {
+private:
     T data_;
     BSTNode<T>* left_;
     BSTNode<T>* right_;
     BSTNode<T>* parent_;
-    BSTNode() : left_(nullptr), right_(nullptr), parent_(nullptr) {}
-    BSTNode(T data, BSTNode<T>* left, BSTNode<T>* right);
-    int countHelper() const;
+    int sizeHelper() const;
+public:
+    explicit BSTNode(T data_, BSTNode<T>* left_, BSTNode<T>* right_);
+    BSTNode() : data_(T()), left_(nullptr), right_(nullptr) {}
+    friend class BST<T>;
 };
 
 template <typename T>
-int BSTNode<T>::countHelper() const
+int BSTNode<T>::sizeHelper() const
 {
     int count = 1;
-    if(right_) count += countHelper(right_);
-    if(left_) count += countHelper(left_);
+    count += left_->sizeHelper();
+    count += right_->sizeHelper();
     return count;
 }
 
 template <typename T>
-BSTNode<T>::BSTNode(T data, BSTNode<T>* left, BSTNode<T>* right) : left_(left_), right_(right), parent_(nullptr), data_(data)
-{
+BSTNode<T>::BSTNode(T data, BSTNode<T>* right, BSTNode<T>* left) : data_(data), left_(left), right_(right)
+{   
     if(left_ != nullptr) left_->parent_ = this;
-    if(right_ != nullptr) right_->parent_ = this;
+    if(right_ != nullptr) right_
+    ->parent_ = this;
 }
 
 template <typename T>
-struct BST
+class BST
 {
+private:
     BSTNode<T>* root_;
-    int size();
+
+public:
+    int size() const;
+    void insert(T data);
 };
 
 template <typename T>
-int BST<T>::size()
+int BST<T>::size() const
 {
     if(root_ == nullptr) return 0;
-    return countHelper(root_);
+    return root_->sizeHelper();
 }
+
+template <typename T>
+void BST<T>::insert(T data)
+{
+    if(root_ == nullptr)
+    {
+        root_ = new BSTNode(data);
+        return;
+    }
+    BSTNode<T>* cur = root_;
+    while(cur->next != nullptr)
+    {
+        if(data > cur->data_)
+            
+    }
+
+}
+265
